@@ -1,0 +1,21 @@
+.forms {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Ajustez la hauteur en fonction de vos besoins */
+}
+
+.card {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+
+@media (max-width: 768px) {
+  .forms {
+    margin: 0 auto;
+    width: 100%;
+  }
+}

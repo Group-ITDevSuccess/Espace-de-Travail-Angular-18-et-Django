@@ -20,9 +20,7 @@
             "outputPath": "dist/01-todo-app",
             "index": "projects/01-todo-app/src/index.html",
             "browser": "projects/01-todo-app/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/01-todo-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -32,9 +30,13 @@
               }
             ],
             "styles": [
+              "node_modules/bootstrap/scss/bootstrap.scss",
+              // "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "projects/01-todo-app/src/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ],
             "server": "projects/01-todo-app/src/main.server.ts",
             "prerender": true,
             "ssr": {
@@ -83,10 +85,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/01-todo-app/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -95,9 +94,7 @@
                 "input": "projects/01-todo-app/public"
               }
             ],
-            "styles": [
-              "projects/01-todo-app/src/styles.scss"
-            ],
+            "styles": ["projects/01-todo-app/src/styles.scss"],
             "scripts": []
           }
         }
