@@ -1,15 +1,18 @@
-import { Component } from '@angular/core';
+import { User } from './../../models/User';
+import { Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AuthsService } from '../../services/auths.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   template: `
     <div class="forms">
       <div class="container">
@@ -44,10 +47,12 @@ import {
                   <button
                     type="submit"
                     class="btn btn-primary"
-                    [disabled]="loginForm.invalid"
+                    [disabled]="!loginForm.valid"
                   >
                     Se Connecter
                   </button>
+                  <p>Validation du formualre : {{ loginForm.valid }}</p>
+                  <p>{{ loginForm.value | json }}</p>
                 </form>
               </div>
             </div>
@@ -59,10 +64,25 @@ import {
   styles: `@import './auth.component.scss';`,
 })
 export default class LoginComponent {
+  private authService = inject(AuthsService);
+
   loginForm = new FormGroup({
-    username: new FormControl('', Validators.required),
+    username: new FormControl('', [
+      Validators.required,
+      Validators.minLength(1),
+    ]),
     password: new FormControl('', Validators.required),
   });
 
-  onSubmit() {}
+  onSubmit() {
+    const user: User = {
+      username: this.loginForm.value.username!,
+      password: this.loginForm.value.password!,
+    };
+    console.log('User : ', user, this.loginForm);
+
+    this.authService.loginUser(user).subscribe((value) => {
+      console.log('Value: ', value);
+    });
+  }
 }
