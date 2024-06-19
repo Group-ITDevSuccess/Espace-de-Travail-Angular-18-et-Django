@@ -32,7 +32,7 @@ import { CommonModule } from '@angular/common';
                 </div>
               </div>
               <h3 class="text-center mb-4 text-success">Identifiez-vous</h3>
-              <form action="">
+              <form [formGroup]="loginForm">
                 <div class="form-group">
                   <input
                     type="text"
@@ -55,7 +55,7 @@ import { CommonModule } from '@angular/common';
                 <div class="form-group d-md-flex">
                   <div class="w-100 mb-5">
                     <div class="form-group">
-                      <button type="submit" class="submit btn btn-success rounded p-3 px-5">Connexion</button>
+                      <button type="submit" class="submit btn btn-success rounded p-3 px-5" [disabled]="!loginForm.valid" (click)="onSubmit()">Connexion</button>
                     </div>
                   </div>
                 </div>

@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   FormControl,
@@ -9,7 +10,7 @@ import {
 @Component({
   selector: 'app-signin',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   template: `
     <div class="forms">
       <div class="container">
@@ -29,8 +30,8 @@ import {
                 </div>
               </div>
               <h3 class="text-center mb-4 text-success">Votre Information</h3>
-              <form action="">
-                <div class="form-group" [formGroup]="registerForm">
+              <form  [formGroup]="registerForm">
+                <div class="form-group">
                   <div class="row">
                     <div class="col">
                       <input
@@ -101,7 +102,7 @@ import {
                       <button
                         type="submit"
                         class="submit btn btn-success rounded p-3 px-5"
-                        [disabled]="!registerForm.valid"
+                        [disabled]="!registerForm.valid" (click)="onSubmit()"
                       >
                         S'inscrire
                       </button>
