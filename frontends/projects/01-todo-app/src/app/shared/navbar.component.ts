@@ -1,5 +1,6 @@
+import { AuthsService } from './../services/auths.service';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -40,7 +41,7 @@ import { RouterModule } from '@angular/router';
           </ul>
           <div class="d-flex" role="search">
 
-            <button class="btn btn-outline-danger" >
+            <button class="btn btn-outline-danger" (click)="logoutClick()">
               Déconnexion
             </button>
           </div>
@@ -50,4 +51,10 @@ import { RouterModule } from '@angular/router';
   `,
   styles: ``,
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+  private authService = inject(AuthsService)
+
+  logoutClick(){
+    this.authService.logoutUser()
+  }
+}

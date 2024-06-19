@@ -5,6 +5,7 @@ import {
   NgbAlertModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { NotifierModule } from 'angular-notifier';
+import { AuthsService } from './services/auths.service';
 
 @Component({
   selector: 'app-root',

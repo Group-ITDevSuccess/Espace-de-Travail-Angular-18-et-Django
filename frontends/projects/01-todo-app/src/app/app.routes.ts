@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
+import { NotFoundComponent } from './shared/not-found.component';
+import { homeGuard } from './guard/home.guard';
 
 export const routes: Routes = [
   {
@@ -9,10 +11,17 @@ export const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    canActivate: [homeGuard],
+    component: HomeComponent,
   },
   {
     path: 'accounts',
-    loadChildren: () => import('./components/auth/auth.routing').then(m => m.AuthRoutes),
+    loadChildren: () =>
+      import('./components/auth/auth.routing').then((m) => m.AuthRoutes),
+  },
+  {
+    path: '**',
+    title: 'Not Found',
+    component: NotFoundComponent,
   },
 ];
