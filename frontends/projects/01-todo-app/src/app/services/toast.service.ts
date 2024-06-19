@@ -7,7 +7,7 @@ import { Toast } from '../models/Toast';
 export class ToastService {
   toasts: Toast[] = [];
 
-  show(toast: Toast) {
+  private show(toast: Toast) {
     this.toasts.push(toast);
   }
 
@@ -18,4 +18,21 @@ export class ToastService {
   clear() {
     this.toasts.splice(0, this.toasts.length);
   }
+
+  showSuccess(message: string) {
+    this.show({
+      message,
+      classname: 'bg-success text-light',
+      delay: 3000,
+    });
+  }
+
+  showDanger(message: string) {
+    this.show({
+      message,
+      classname: 'bg-danger text-light',
+      delay: 3000,
+    });
+  }
+
 }

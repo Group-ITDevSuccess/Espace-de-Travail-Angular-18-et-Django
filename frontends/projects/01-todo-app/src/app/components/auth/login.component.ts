@@ -95,21 +95,6 @@ export class LoginComponent {
   private authService = inject(AuthsService);
   toastService = inject(ToastService);
 
-  showSuccess(message: string) {
-    this.toastService.show({
-      message,
-      classname: 'bg-success text-light',
-      delay: 3000,
-    });
-  }
-
-  showDanger(message: string) {
-    this.toastService.show({
-      message,
-      classname: 'bg-danger text-light',
-      delay: 3000,
-    });
-  }
   loginForm = new FormGroup({
     username: new FormControl('', [
       Validators.required,
@@ -129,11 +114,11 @@ export class LoginComponent {
     this.authService.loginUser(user).subscribe({
       next: (value) => {
         console.log('Value: ', value);
-        this.showSuccess('Login successful!')
+        this.toastService.showSuccess('Login successful!');
       },
       error: (err) => {
         console.error('Login error:', err);
-        this.showDanger('Login failed: ' + err.error.message);
+        this.toastService.showDanger('Login failed: ' + err.error.message);
       },
     });
   }
