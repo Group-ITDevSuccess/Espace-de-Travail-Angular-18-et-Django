@@ -51,8 +51,8 @@ import { CommonModule } from '@angular/common';
                   >
                     Se Connecter
                   </button>
-                  <p>Validation du formualre : {{ loginForm.valid }}</p>
-                  <p>{{ loginForm.value | json }}</p>
+                  <!-- <p>Validation du formualre : {{ loginForm.valid }}</p>
+                  <p>{{ loginForm.value | json }}</p> -->
                 </form>
               </div>
             </div>
