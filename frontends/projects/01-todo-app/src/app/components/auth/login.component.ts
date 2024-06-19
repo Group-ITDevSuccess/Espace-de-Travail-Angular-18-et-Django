@@ -8,11 +8,12 @@ import {
 } from '@angular/forms';
 import { AuthsService } from '../../services/auths.service';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   template: `
     <div class="forms">
       <div class="container">
@@ -55,12 +56,23 @@ import { CommonModule } from '@angular/common';
                 <div class="form-group d-md-flex">
                   <div class="w-100 mb-5">
                     <div class="form-group">
-                      <button type="submit" class="submit btn btn-success rounded p-3 px-5" [disabled]="!loginForm.valid" (click)="onSubmit()">Connexion</button>
+                      <button
+                        type="submit"
+                        class="submit btn btn-success rounded p-3 px-5"
+                        [disabled]="!loginForm.valid"
+                        (click)="onSubmit()"
+                      >
+                        Connexion
+                      </button>
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
-                  <span>Vous n'avez pas un compte ? <a href="">Inscription</a></span>
+                  <span
+                    >Vous n'avez pas un compte ?
+                    <a routerLink="signin" title="Se connecter"
+                      ><i class="bi bi-box-arrow-in-right"></i></a
+                  ></span>
                 </div>
               </form>
             </div>
@@ -71,7 +83,7 @@ import { CommonModule } from '@angular/common';
   `,
   styles: `@import './auth.component.scss';`,
 })
-export default class LoginComponent {
+export class LoginComponent {
   private authService = inject(AuthsService);
 
   loginForm = new FormGroup({

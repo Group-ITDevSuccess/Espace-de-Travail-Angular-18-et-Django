@@ -6,11 +6,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   template: `
     <div class="forms">
       <div class="container">
@@ -110,7 +111,7 @@ import {
                   </div>
                 </div>
                 <div class="form-group">
-                  <span>Vous avez déja un compte ? <a href="">Connexion</a></span>
+                  <span>Vous avez déja un compte ? <a routerLink="signin" ><i class="bi bi-box-arrow-in-left"></i> </a></span>
                 </div>
               </form>
             </div>
@@ -121,7 +122,7 @@ import {
   `,
   styles: `@import './auth.component.scss';`,
 })
-export default class SigninComponent {
+export class SigninComponent {
   registerForm = new FormGroup({
     username: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.email]),
