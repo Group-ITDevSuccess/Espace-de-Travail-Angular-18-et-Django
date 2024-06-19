@@ -59,6 +59,9 @@ import { CommonModule } from '@angular/common';
                     </div>
                   </div>
                 </div>
+                <div class="form-group">
+                  <span>Vous n'avez pas un compte ? <a href="">Inscription</a></span>
+                </div>
               </form>
             </div>
           </div>

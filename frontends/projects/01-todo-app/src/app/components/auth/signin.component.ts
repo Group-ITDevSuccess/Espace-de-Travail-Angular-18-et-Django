@@ -13,82 +13,105 @@ import {
   template: `
     <div class="forms">
       <div class="container">
-        <div class="row justify-content-center align-items-center h-100">
-          <div class="col-md-6">
-            <div class="card">
-              <div class="card-body">
-                <h3 class="text-center mb-4">Inscription</h3>
-                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="mt-4">
-                  <div class="row mb-3">
-                    <div class="col">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="username"
-                        formControlName="username"
-                        placeholder="Entrez votre identifiant"
-                      />
-                    </div>
-                    <div class="col">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="email"
-                        formControlName="email"
-                        placeholder="Entrez votre email"
-                      />
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <div class="col">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Nom"
-                        formControlName="first_name"
-                        aria-label="Nom"
-                      />
-                    </div>
-                    <div class="col">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Prénom"
-                        formControlName="last_name"
-                        aria-label="Prénom"
-                      />
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <div class="col">
-                      <input
-                        type="password"
-                        class="form-control"
-                        id="password"
-                        formControlName="password"
-                        placeholder="Entrez votre mot de passe"
-                      />
-                    </div>
-                    <div class="col">
-                      <input
-                        type="password"
-                        class="form-control"
-                        id="password-verification"
-                        formControlName="password_verification"
-                        placeholder="Entrez encore votre mot de passe"
-                      />
-                    </div>
-                  </div>
-
-                  <button
-                    type="submit"
-                    class="btn btn-primary mt-2"
-                    [disabled]="registerForm.invalid"
-                  >
-                    S'inscrire
-                  </button>
-                </form>
+        <div class="row justify-content-center">
+          <div class="col-md-6 text-center mb-5">
+            <h4 class="heading-section">Inscription TodoApp</h4>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-6">
+            <div class="auths-wrap p-4 p-md-5 shadow">
+              <div
+                class="icon d-flex align-items-center justify-content-center bg-white text-success"
+              >
+                <div class="logo">
+                  <img src="ITDevSuccess(Black).png" alt="" />
+                </div>
               </div>
+              <h3 class="text-center mb-4 text-success">Votre Information</h3>
+              <form action="">
+                <div class="form-group" [formGroup]="registerForm">
+                  <div class="row">
+                    <div class="col">
+                      <input
+                        type="text"
+                        formControlName="username"
+                        id="username"
+                        placeholder="Identifiant ou Pseudo"
+                        class="form-control"
+                        required="true"
+                      />
+                    </div>
+                    <div class="col">
+                      <input
+                        type="email"
+                        formControlName="email"
+                        id="email"
+                        placeholder="Adresse Email"
+                        class="form-control"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col">
+                      <input
+                        type="text"
+                        formControlName="first_name"
+                        id="first_name"
+                        placeholder="Nom"
+                        class="form-control"
+                      />
+                    </div>
+                    <div class="col">
+                      <input
+                        type="text"
+                        formControlName="last_name"
+                        id="last_name"
+                        placeholder="Prénom"
+                        class="form-control"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group d-flex">
+                  <input
+                    type="password"
+                    formControlName="password"
+                    id="password"
+                    placeholder="Votre Mot de Passe"
+                    autocomplete="off"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group d-flex">
+                  <input
+                    type="password"
+                    formControlName="password_verification"
+                    id="password_verification"
+                    placeholder="Reverifier Votre Mot de Passe"
+                    autocomplete="off"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group d-md-flex">
+                  <div class="w-100 mb-5">
+                    <div class="form-group">
+                      <button
+                        type="submit"
+                        class="submit btn btn-success rounded p-3 px-5"
+                        [disabled]="!registerForm.valid"
+                      >
+                        S'inscrire
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <span>Vous avez déja un compte ? <a href="">Connexion</a></span>
+                </div>
+              </form>
             </div>
           </div>
         </div>
