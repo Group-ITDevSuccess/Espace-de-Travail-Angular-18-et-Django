@@ -70,7 +70,7 @@ import { RouterModule } from '@angular/router';
                 <div class="form-group">
                   <span
                     >Vous n'avez pas un compte ?
-                    <a routerLink="signin" title="Se connecter"
+                    <a routerLink="/accounts/signin" title="Se connecter"
                       ><i class="bi bi-box-arrow-in-right"></i></a
                   ></span>
                 </div>

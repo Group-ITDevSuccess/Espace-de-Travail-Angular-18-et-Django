@@ -1,10 +1,12 @@
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login.component';
 import { SigninComponent } from './signin.component';
+import { AuthComponent } from './auth.component';
 
 export const AuthRoutes: Routes = [
   {
     path: '',
+    component: AuthComponent,
     children: [
       {
         path: '',
@@ -12,14 +14,13 @@ export const AuthRoutes: Routes = [
         pathMatch: 'full',
       },
       {
-        path: 'signin',
+        path: 'login',
         component: LoginComponent,
       },
       {
-        path: 'login',
+        path: 'signin',
         component: SigninComponent,
-      }
-    ]
+      },
+    ],
   },
 ];
-

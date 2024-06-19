@@ -6,7 +6,7 @@ import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap'
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, NgbPaginationModule, NgbAlertModule],
-  templateUrl: './app.component.html',
+  template: `<router-outlet />`,
   styleUrl: './app.component.scss'
 })
 export class AppComponent {

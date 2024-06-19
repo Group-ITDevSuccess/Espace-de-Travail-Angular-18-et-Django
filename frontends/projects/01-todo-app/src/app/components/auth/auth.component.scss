@@ -40,44 +40,44 @@ $color: #337ab7;
       width: 80px;
     }
   }
-}
+  .form-control{
+    height: 48px;
+    background: rgba(0,0,0, 0.05);
+    color: #000;
+    font-size: 16px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid transparent;
+    padding: 0 20px;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 
-
-.form-control{
-  height: 48px;
-  background: rgba(0,0,0, 0.05);
-  color: #000;
-  font-size: 16px;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border: 1px solid transparent;
-  padding: 0 20px;
-  -webkit-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-
-  &.reduced-motion {
-    transition: none;
+    &.reduced-motion {
+      transition: none;
+    }
   }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .form-control.reduced-motion {
-    transition: none;
+  @media (prefers-reduced-motion: reduce) {
+    .form-control.reduced-motion {
+      transition: none;
+    }
   }
-}
 
-.form-group{
-  margin-bottom: 1rem;
-  position: relative;
+  .form-group{
+    margin-bottom: 1rem;
+    position: relative;
 
-  .submit{
-    position: absolute;
-    top: 20px;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
+    .submit{
+      position: absolute;
+      top: 20px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
   }
 
 }
+
+
 

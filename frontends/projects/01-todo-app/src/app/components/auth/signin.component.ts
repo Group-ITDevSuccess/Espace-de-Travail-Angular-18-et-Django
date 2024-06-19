@@ -111,7 +111,7 @@ import { RouterModule } from '@angular/router';
                   </div>
                 </div>
                 <div class="form-group">
-                  <span>Vous avez déja un compte ? <a routerLink="signin" ><i class="bi bi-box-arrow-in-left"></i> </a></span>
+                  <span>Vous avez déja un compte ? <a routerLink="/accounts/login" ><i class="bi bi-box-arrow-in-left"></i> </a></span>
                 </div>
               </form>
             </div>
