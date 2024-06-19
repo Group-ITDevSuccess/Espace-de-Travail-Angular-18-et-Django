@@ -7,7 +7,7 @@ import { NavbarComponent } from '../../shared/navbar.component';
   template: `
     <app-navbar />
     <p>home works!</p>
-  `,  
+  `,
   styleUrl: './home.component.scss',
   imports: [NavbarComponent],
 })
