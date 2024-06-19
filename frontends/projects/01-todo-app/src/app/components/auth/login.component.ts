@@ -9,7 +9,7 @@ import {
 import { AuthsService } from '../../services/auths.service';
 
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastComponent } from '../../shared/toast.component';
 import { ToastService } from '../../services/toast.service';
@@ -93,7 +93,8 @@ import { ToastService } from '../../services/toast.service';
 export class LoginComponent {
   public show: boolean = false;
   private authService = inject(AuthsService);
-  toastService = inject(ToastService);
+  private toastService = inject(ToastService);
+  private router = inject(Router);
 
   loginForm = new FormGroup({
     username: new FormControl('', [
@@ -113,12 +114,16 @@ export class LoginComponent {
 
     this.authService.loginUser(user).subscribe({
       next: (value) => {
-        console.log('Value: ', value);
-        this.toastService.showSuccess('Login successful!');
+        let data = JSON.parse(JSON.stringify(value));
+        localStorage.setItem('access_token', data['token']);
+        this.toastService.showSuccess('Login successful !');
+        this.router.navigate(['/home']);
       },
       error: (err) => {
         console.error('Login error:', err);
+        localStorage.removeItem('access_token');
         this.toastService.showDanger('Login failed: ' + err.error.message);
+        this.router.navigate(['/accounts/login']);
       },
     });
   }
