@@ -16,45 +16,50 @@ import { CommonModule } from '@angular/common';
   template: `
     <div class="forms">
       <div class="container">
-        <div class="row justify-content-center align-items-center h-100">
-          <div class="col-md-4">
-            <div class="card">
-              <div class="card-body">
-                <h3 class="text-center  ">Connexion</h3>
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                  <div class="mb-3">
-                    <label for="username" class="form-label">Identifiant</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="username"
-                      formControlName="username"
-                      placeholder="Entrez votre identifiant"
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label for="password" class="form-label"
-                      >Mot de passe</label
-                    >
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="password"
-                      formControlName="password"
-                      placeholder="Entrez votre mot de passe"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    class="btn btn-primary"
-                    [disabled]="!loginForm.valid"
-                  >
-                    Se Connecter
-                  </button>
-                  <!-- <p>Validation du formualre : {{ loginForm.valid }}</p>
-                  <p>{{ loginForm.value | json }}</p> -->
-                </form>
+        <div class="row justify-content-center">
+          <div class="col-md-6 text-center mb-5">
+            <h4 class="heading-section">Connexion TodoApp</h4>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-6 col-lg-4">
+            <div class="auths-wrap p-4 p-md-5 shadow">
+              <div
+                class="icon d-flex align-items-center justify-content-center bg-white text-success"
+              >
+                <div class="logo">
+                  <img src="ITDevSuccess(Black).png" alt="" />
+                </div>
               </div>
+              <h3 class="text-center mb-4 text-success">Identifiez-vous</h3>
+              <form action="">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    formControlName="username"
+                    id="username"
+                    placeholder="Votre Identifiant"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group d-flex">
+                  <input
+                    type="password"
+                    formControlName="password"
+                    id="password"
+                    placeholder="Votre Mot de Passe"
+                    autocomplete="off"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group d-md-flex">
+                  <div class="w-100 mb-5">
+                    <div class="form-group">
+                      <button type="submit" class="submit btn btn-success rounded p-3 px-5">Connexion</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
