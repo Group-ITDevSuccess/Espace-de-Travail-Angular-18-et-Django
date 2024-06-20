@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -8,8 +8,10 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { User } from '../../models/User';
+import { ToastService } from '../../services/toast.service';
+import { AuthsService } from '../../services/auths.service';
 
 @Component({
   selector: 'app-signin',
@@ -82,23 +84,49 @@ import { User } from '../../models/User';
                 </div>
                 <div class="form-group d-flex">
                   <input
-                    type="password"
+                    [type]="passwordFieldType"
                     formControlName="password"
                     id="password"
                     placeholder="Votre Mot de Passe"
                     autocomplete="off"
                     class="form-control"
                   />
+                  <button
+                    type="button"
+                    (click)="togglePasswordVisibility()"
+                    class="btn btn-outline-secondary"
+                  >
+                    <i
+                      [class]="
+                        passwordFieldType === 'password'
+                          ? 'bi bi-eye'
+                          : 'bi bi-eye-slash'
+                      "
+                    ></i>
+                  </button>
                 </div>
                 <div class="form-group d-flex">
                   <input
-                    type="password"
+                    [type]="passwordFieldType"
                     formControlName="password_verification"
                     id="password_verification"
                     placeholder="Reverifier Votre Mot de Passe"
                     autocomplete="off"
                     class="form-control"
                   />
+                  <button
+                    type="button"
+                    (click)="togglePasswordVisibility()"
+                    class="btn btn-outline-secondary"
+                  >
+                    <i
+                      [class]="
+                        passwordFieldType === 'password'
+                          ? 'bi bi-eye'
+                          : 'bi bi-eye-slash'
+                      "
+                    ></i>
+                  </button>
                 </div>
                 <div class="form-group d-md-flex">
                   <div class="w-100 mb-5">
@@ -132,6 +160,10 @@ import { User } from '../../models/User';
 })
 export class SigninComponent {
   public registerForm!: FormGroup;
+  public passwordFieldType: string = 'password';
+  private toastService = inject(ToastService);
+  private router = inject(Router);
+  private authService = inject(AuthsService);
 
   ngOnInit(): void {
     this.registerForm = new FormGroup(
@@ -140,13 +172,24 @@ export class SigninComponent {
         email: new FormControl('', [Validators.email]),
         first_name: new FormControl(''),
         last_name: new FormControl(''),
-        password: new FormControl('', Validators.required),
-        password_verification: new FormControl('', [Validators.required]),
+        password: new FormControl('', [
+          Validators.required,
+          Validators.minLength(4),
+        ]),
+        password_verification: new FormControl('', [
+          Validators.required,
+          Validators.minLength(4),
+        ]),
       },
       {
         validators: this.passwordMatchValidator,
       }
     );
+  }
+
+  togglePasswordVisibility(): void {
+    this.passwordFieldType =
+      this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 
   onSubmit() {
@@ -157,12 +200,23 @@ export class SigninComponent {
       last_name: this.registerForm.value.last_name!,
       password: this.registerForm.value.password!,
     };
+
+    if (this.registerForm.valid) {
+      this.authService.signinUser(user).subscribe({
+        next: (value) => {
+          this.toastService.showSuccess('Compte Create successful !');
+          this.router.navigate(['/accounts/login']);
+        },
+        error: (err) => {
+          this.toastService.showDanger('Register failed: ' + err.error.message);
+        },
+      });
+    }
   }
 
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password')?.value;
     const passwordVerification = control.get('password_verification')?.value;
-    console.log(password, '===', passwordVerification);
     if (password !== passwordVerification) {
       return { passwordMismatch: true };
     }

@@ -3,7 +3,7 @@ import { Injectable, inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 
-import { LOGIN_USER_API, LOGOUT_USER_API } from '../components/environement';
+import { LOGIN_USER_API, LOGOUT_USER_API, SIGNIN_USER_API } from '../components/environement';
 import { User } from '../models/User';
 
 @Injectable({
@@ -19,6 +19,7 @@ export class AuthsService {
     .set('Accept', '*/*');
 
   loginUser = (user: User) => this.http.post<User>(`${LOGIN_USER_API}`, user);
+  signinUser = (user: User) => this.http.post<User>(`${SIGNIN_USER_API}`, user);
 
   private isBrowser(): boolean {
     return isPlatformBrowser(this.platformId);

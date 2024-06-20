@@ -90,7 +90,6 @@ import { ToastService } from '../../services/toast.service';
   imports: [CommonModule, ReactiveFormsModule, RouterModule, ToastComponent],
 })
 export class LoginComponent {
-  public show: boolean = false;
   public loginForm!: FormGroup;
   private toastService = inject(ToastService);
   private router = inject(Router);
@@ -136,5 +135,5 @@ export class LoginComponent {
     }
   }
 
-  
+
 }
