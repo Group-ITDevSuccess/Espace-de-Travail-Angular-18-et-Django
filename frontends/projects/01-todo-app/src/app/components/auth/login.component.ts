@@ -89,45 +89,43 @@ import { ToastService } from '../../services/toast.service';
 })
 export class LoginComponent {
   public show: boolean = false;
+  public loginForm?: any;
   private toastService = inject(ToastService);
   private router = inject(Router);
   private authService = inject(AuthsService);
 
-  loginForm = new FormGroup({
-    username: new FormControl('', [
-      Validators.required,
-      Validators.minLength(1),
-    ]),
-    password: new FormControl('', Validators.required),
-  });
-
-  // ngOnInit(): void {
-
-  //   if(this.authService.isLoggedIn() == true){
-  //     this.router.navigate(['/home'])
-  //   }
-  // }
+  ngOnInit(): void {
+    this.loginForm = new FormGroup({
+      username: new FormControl('', [
+        Validators.required,
+        Validators.minLength(1),
+      ]),
+      password: new FormControl('', Validators.required),
+    });
+  }
 
   onSubmit() {
     const user: User = {
       username: this.loginForm.value.username!,
       password: this.loginForm.value.password!,
     };
-
-    this.authService.loginUser(user).subscribe({
-      next: (value) => {
-        let data = JSON.parse(JSON.stringify(value));
-        this.authService.setToken(data['token']);
-        this.toastService.showSuccess('Login successful !');
-        this.router.navigate(['/home']);
-      },
-      error: (err) => {
-        console.error('Login error:', err.error.status, err);
-        this.authService.removeToken();
-        this.toastService.showDanger('Login failed: ' + err.error.message);
-        this.router.navigate(['/accounts/login']);
-      },
-    });
+    
+    if (this.loginForm.valid) {
+      this.authService.loginUser(user).subscribe({
+        next: (value) => {
+          let data = JSON.parse(JSON.stringify(value));
+          this.authService.setToken(data['token']);
+          this.toastService.showSuccess('Login successful !');
+          this.router.navigate(['/home']);
+        },
+        error: (err) => {
+          console.error('Login error:', err.error.status, err);
+          this.authService.removeToken();
+          this.toastService.showDanger('Login failed: ' + err.error.message);
+          this.router.navigate(['/accounts/login']);
+        },
+      });
+    }
   }
   ngOnDestroy(): void {
     this.toastService.clear();

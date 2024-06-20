@@ -19,7 +19,7 @@ export const routes: Routes = [
     path: 'accounts',
     loadChildren: () =>
       import('./components/auth/auth.routing').then((m) => m.AuthRoutes),
-    canActivate: [homeGuard],
+    canActivateChild: [homeGuard],
   },
   {
     path: '**',

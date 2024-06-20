@@ -49,19 +49,14 @@ export class AuthsService {
 
   logoutUser = () => {
     if (this.getToken() != null) {
-      this.headers = this.headers.set(
-        'Authorization',
-        `Token ${this.getToken()}`
-      );
-      this.http
-        .post<User>(
-          `${LOGOUT_USER_API}`,
-          {},
-          {
-            headers: this.headers,
-          }
-        )
-        .subscribe();
+      this.headers = this.headers.set('Authorization', `Token ${this.getToken()}`);
+      this.http.post<User>(
+        `${LOGOUT_USER_API}`,
+        {},
+        {
+          headers: this.headers,
+        }
+      ).subscribe();
       if (this.removeToken() == null) {
         this.router.navigate(['/accounts/login']);
       }
