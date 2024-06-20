@@ -1,9 +1,11 @@
 import { User } from './../../models/User';
 import { Component, inject } from '@angular/core';
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { AuthsService } from '../../services/auths.service';
@@ -89,19 +91,25 @@ import { ToastService } from '../../services/toast.service';
 })
 export class LoginComponent {
   public show: boolean = false;
-  public loginForm?: any;
+  public loginForm!: FormGroup;
   private toastService = inject(ToastService);
   private router = inject(Router);
   private authService = inject(AuthsService);
 
   ngOnInit(): void {
-    this.loginForm = new FormGroup({
-      username: new FormControl('', [
-        Validators.required,
-        Validators.minLength(1),
-      ]),
-      password: new FormControl('', Validators.required),
-    });
+    this.loginForm = new FormGroup(
+      {
+        username: new FormControl('', [
+          Validators.required,
+          Validators.minLength(1),
+        ]),
+        password: new FormControl('', Validators.required),
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.toastService.clear();
   }
 
   onSubmit() {
@@ -109,7 +117,7 @@ export class LoginComponent {
       username: this.loginForm.value.username!,
       password: this.loginForm.value.password!,
     };
-    
+
     if (this.loginForm.valid) {
       this.authService.loginUser(user).subscribe({
         next: (value) => {
@@ -127,7 +135,6 @@ export class LoginComponent {
       });
     }
   }
-  ngOnDestroy(): void {
-    this.toastService.clear();
-  }
+
+  
 }

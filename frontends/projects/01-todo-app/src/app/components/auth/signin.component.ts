@@ -1,12 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { User } from '../../models/User';
 
 @Component({
   selector: 'app-signin',
@@ -31,7 +34,7 @@ import { RouterModule } from '@angular/router';
                 </div>
               </div>
               <h3 class="text-center mb-4 text-success">Votre Information</h3>
-              <form  [formGroup]="registerForm">
+              <form [formGroup]="registerForm">
                 <div class="form-group">
                   <div class="row">
                     <div class="col">
@@ -103,7 +106,8 @@ import { RouterModule } from '@angular/router';
                       <button
                         type="submit"
                         class="submit btn btn-success rounded p-3 px-5"
-                        [disabled]="!registerForm.valid" (click)="onSubmit()"
+                        [disabled]="!registerForm.valid"
+                        (click)="onSubmit()"
                       >
                         S'inscrire
                       </button>
@@ -111,7 +115,11 @@ import { RouterModule } from '@angular/router';
                   </div>
                 </div>
                 <div class="form-group">
-                  <span>Vous avez déja un compte ? <a routerLink="/accounts/login" ><i class="bi bi-box-arrow-in-left"></i> </a></span>
+                  <span
+                    >Vous avez déja un compte ?
+                    <a routerLink="/accounts/login"
+                      ><i class="bi bi-box-arrow-in-left"></i> </a
+                  ></span>
                 </div>
               </form>
             </div>
@@ -123,13 +131,41 @@ import { RouterModule } from '@angular/router';
   styles: `@import './auth.component.scss';`,
 })
 export class SigninComponent {
-  registerForm = new FormGroup({
-    username: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.email]),
-    first_name: new FormControl(''),
-    last_name: new FormControl(''),
-    password: new FormControl('', Validators.required),
-    password_verification: new FormControl('', [Validators.required]),
-  });
-  onSubmit() {}
+  public registerForm!: FormGroup;
+
+  ngOnInit(): void {
+    this.registerForm = new FormGroup(
+      {
+        username: new FormControl('', Validators.required),
+        email: new FormControl('', [Validators.email]),
+        first_name: new FormControl(''),
+        last_name: new FormControl(''),
+        password: new FormControl('', Validators.required),
+        password_verification: new FormControl('', [Validators.required]),
+      },
+      {
+        validators: this.passwordMatchValidator,
+      }
+    );
+  }
+
+  onSubmit() {
+    const user: User = {
+      username: this.registerForm.value.username!,
+      email: this.registerForm.value.email!,
+      first_name: this.registerForm.value.first_name!,
+      last_name: this.registerForm.value.last_name!,
+      password: this.registerForm.value.password!,
+    };
+  }
+
+  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const password = control.get('password')?.value;
+    const passwordVerification = control.get('password_verification')?.value;
+    console.log(password, '===', passwordVerification);
+    if (password !== passwordVerification) {
+      return { passwordMismatch: true };
+    }
+    return null;
+  }
 }
